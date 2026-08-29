@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RadarGuard</string>
+
+    <string name="kmh">KM/H</string>
+    <string name="start">Iniciar</string>
+    <string name="stop">Parar</string>
+    <string name="settings">Ajustes</string>
+
+    <string name="status_stopped">Parado. Toque em Iniciar antes de sair.</string>
+    <string name="status_starting">Iniciando…</string>
+    <string name="status_waiting_gps">Procurando sinal de GPS…</string>
+    <string name="status_running">%1$d radares na base · precisão %2$d m</string>
+    <string name="need_location">Sem permissão de localização o app não funciona.</string>
+
+    <string name="no_camera">NENHUM RADAR À FRENTE</string>
+    <string name="next_camera">PRÓXIMO RADAR</string>
+
+    <string name="set_stages">Distâncias de aviso (metros)</string>
+    <string name="set_stages_hint">Separe por vírgula. Cada distância avisa uma vez por radar. A 110 km/h você percorre 30 m por segundo — 2000 m dá 65 s de antecedência, 100 m dá 3 s.</string>
+
+    <string name="set_voice_above">Falar acima de (metros)</string>
+    <string name="set_voice_above_hint">Acima desta distância o app fala a frase inteira. Abaixo, só bipa — não dá tempo de uma frase terminar.</string>
+
+    <string name="set_overspeed">Avisar quando eu estiver acima do limite</string>
+    <string name="set_overspeed_hint">A menos de 400 m do radar, se a velocidade passar do limite, repete o aviso a cada 4 s. É este alerta que de fato evita a multa.</string>
+
+    <string name="set_tolerance">Tolerância do aviso de excesso (km/h)</string>
+    <string name="set_tolerance_hint">O GPS costuma ler um pouco abaixo do velocímetro do carro. Esta margem evita aviso à toa quando você está no limite.</string>
+
+    <string name="set_min_speed">Velocidade mínima para alertar (km/h)</string>
+    <string name="set_min_speed_hint">Abaixo disso o app fica calado: parado, a pé ou preso no trânsito.</string>
+
+    <string name="set_cone">Abertura do cone frontal (graus)</string>
+    <string name="set_cone_hint">Um radar só é engatado se estiver dentro deste ângulo à sua frente. Menor = menos alerta da pista contrária, porém pode perder radar em curva. 30 é um bom meio-termo.</string>
+
+    <string name="set_test">Ouvir a escala completa</string>
+
+    <string name="set_update_url">URL da base atualizada</string>
+    <string name="set_update_url_hint">Link https direto para o arquivo radares.csv.gz. Deixe em branco para usar só a base que veio no aplicativo.</string>
+    <string name="set_update_now">Atualizar base agora</string>
+    <string name="updating">Baixando base…</string>
+
+    <string name="info_bundled">Usando a base que veio no aplicativo.</string>
+    <string name="info_updated">Base atualizada em %1$s.</string>
+    <string name="info_count">%1$d radares carregados.</string>
+    <string name="info_source">Dados de radares: OpenStreetMap, licença ODbL. Nenhuma base cobre todos os radares, e radares móveis não são mapeáveis. Dirija dentro do limite.</string>
+</resources>

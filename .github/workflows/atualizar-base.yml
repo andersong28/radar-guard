@@ -1,0 +1,52 @@
+name: Atualizar base de radares
+
+# Regera a base do OpenStreetMap e publica num release de tag fixa, para que a
+# URL de download nunca mude — e o endereco que voce cola nos Ajustes do app.
+on:
+  schedule:
+    - cron: '0 7 1 * *'   # dia 1 de cada mes, 07:00 UTC (04:00 em Brasilia)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Baixar radares do OpenStreetMap
+        run: python tools/build_radar_db.py
+
+      - name: Mostrar resultado
+        run: |
+          cat app/src/main/assets/radares.meta.json
+          ls -la app/src/main/assets/
+
+      # Tag fixa: o release e sobrescrito todo mes, entao o link de download
+      # .../releases/download/base-radares/radares.csv.gz continua valendo.
+      - name: Publicar base
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: base-radares
+          name: Base de radares (atualizada mensalmente)
+          body: |
+            Base de radares gerada automaticamente do OpenStreetMap (licenca ODbL).
+            Cole esta URL no campo "URL da base atualizada" dos Ajustes do app:
+
+            https://github.com/${{ github.repository }}/releases/download/base-radares/radares.csv.gz
+          files: app/src/main/assets/radares.csv.gz
+
+      # Guarda a base nova no repositorio tambem, pra que o proximo APK ja nasca atualizado.
+      - name: Commitar base no repositorio
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/radares.csv.gz app/src/main/assets/radares.meta.json
+          git diff --staged --quiet || git commit -m "Atualiza base de radares (automatico)"
+          git push

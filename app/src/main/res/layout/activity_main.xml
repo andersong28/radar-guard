@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Tela de direcao: tudo grande e de alto contraste, porque so pode ser lida de
+  relance. O bloco do radar troca de cor quando voce esta acima do limite.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0B0F14"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/status_stopped"
+        android:textColor="#7C8DA6"
+        android:textSize="14sp" />
+
+    <!-- velocidade atual -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--"
+            android:textColor="#F2F6FA"
+            android:textSize="104sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kmh"
+            android:textColor="#7C8DA6"
+            android:textSize="16sp"
+            android:letterSpacing="0.2" />
+    </LinearLayout>
+
+    <!-- proximo radar -->
+    <LinearLayout
+        android:id="@+id/radarCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#141B24"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/radarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_camera"
+            android:textColor="#7C8DA6"
+            android:textSize="13sp"
+            android:letterSpacing="0.15" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_marginTop="6dp">
+
+            <TextView
+                android:id="@+id/radarDistance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="—"
+                android:textColor="#F2F6FA"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/radarLimit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FFD166"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/radarLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#7C8DA6"
+            android:textSize="13sp"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/toggle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/start" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/settings" />
+    </LinearLayout>
+
+</LinearLayout>

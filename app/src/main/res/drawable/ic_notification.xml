@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Icone da barra de status. Precisa ser branco puro sobre transparente: o Android
+  ignora as cores e usa a silhueta, entao um icone colorido viraria um borrao.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- lente -->
+    <path
+        android:pathData="M8,12 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0"
+        android:fillColor="#FFFFFF" />
+
+    <!-- ondas -->
+    <path
+        android:pathData="M11.86,7.4 a6,6 0 0,1 0,9.2"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M13.79,5.11 a9,9 0 0,1 0,13.78"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+</vector>

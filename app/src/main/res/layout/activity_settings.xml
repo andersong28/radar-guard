@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0F14"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            style="@style/RGLabel"
+            android:text="@string/set_stages" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_stages_hint" />
+
+        <EditText
+            android:id="@+id/stages"
+            style="@style/RGInput"
+            android:inputType="text"
+            android:hint="2000,1000,500,300,200,100" />
+
+        <TextView
+            style="@style/RGLabel"
+            android:text="@string/set_voice_above" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_voice_above_hint" />
+
+        <EditText
+            android:id="@+id/voiceAbove"
+            style="@style/RGInput"
+            android:inputType="number" />
+
+        <CheckBox
+            android:id="@+id/overspeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/set_overspeed"
+            android:textColor="#F2F6FA" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_overspeed_hint" />
+
+        <TextView
+            style="@style/RGLabel"
+            android:text="@string/set_tolerance" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_tolerance_hint" />
+
+        <EditText
+            android:id="@+id/tolerance"
+            style="@style/RGInput"
+            android:inputType="number" />
+
+        <TextView
+            style="@style/RGLabel"
+            android:text="@string/set_min_speed" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_min_speed_hint" />
+
+        <EditText
+            android:id="@+id/minSpeed"
+            style="@style/RGInput"
+            android:inputType="number" />
+
+        <TextView
+            style="@style/RGLabel"
+            android:text="@string/set_cone" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_cone_hint" />
+
+        <EditText
+            android:id="@+id/cone"
+            style="@style/RGInput"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/set_test" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="26dp"
+            android:background="#1E2732" />
+
+        <TextView
+            style="@style/RGLabel"
+            android:text="@string/set_update_url" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_update_url_hint" />
+
+        <EditText
+            android:id="@+id/updateUrl"
+            style="@style/RGInput"
+            android:inputType="textUri" />
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/set_update_now" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="#7C8DA6"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+</ScrollView>
