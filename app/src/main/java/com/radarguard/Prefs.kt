@@ -33,7 +33,7 @@ class Prefs(context: Context) {
         set(v) = sp.edit().putInt(KEY_CONE, v).apply()
 
     var updateUrl: String
-        get() = sp.getString(KEY_UPDATE_URL, "") ?: ""
+        get() = sp.getString(KEY_UPDATE_URL, DEFAULT_UPDATE_URL) ?: DEFAULT_UPDATE_URL
         set(v) = sp.edit().putString(KEY_UPDATE_URL, v).apply()
 
     var lastUpdate: String
@@ -62,6 +62,13 @@ class Prefs(context: Context) {
 
     companion object {
         const val DEFAULT_STAGES = "2000,1000,500,300,200,100"
+
+        /**
+         * Release de tag fixa que o fluxo mensal do CI sobrescreve, entao a URL nunca
+         * muda. Ja vem preenchida pra base atualizar sem o usuario colar nada.
+         */
+        const val DEFAULT_UPDATE_URL =
+            "https://github.com/andersong28/radar-guard/releases/download/base-radares/radares.csv.gz"
         private const val KEY_STAGES = "stages"
         private const val KEY_VOICE_ABOVE = "voice_above"
         private const val KEY_OVERSPEED = "overspeed"

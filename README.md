@@ -38,17 +38,8 @@ ele roda **junto**, por cima ou em segundo plano, cuidando só dos radares.
 
 Você não precisa instalar Android Studio: o GitHub compila o APK de graça na nuvem.
 
-1. **Crie um repositório** no GitHub (pode ser privado) e suba esta pasta:
-
-   ```bash
-   cd radar-guard
-   git init
-   git add .
-   git commit -m "RadarGuard inicial"
-   git branch -M main
-   git remote add origin https://github.com/SEU-USUARIO/radar-guard.git
-   git push -u origin main
-   ```
+1. **O repositório já existe**: [andersong28/radar-guard](https://github.com/andersong28/radar-guard).
+   Para publicar uma alteração, basta `git push`.
 
 2. **Espere o build.** Na aba **Actions** do repositório, o fluxo *Gerar APK* roda
    sozinho a cada push. Leva uns 3–5 minutos.
@@ -72,11 +63,11 @@ Você não precisa instalar Android Studio: o GitHub compila o APK de graça na 
 O fluxo **Atualizar base de radares** roda automaticamente no dia 1 de cada mês,
 regera a base do OpenStreetMap e publica num release de tag fixa.
 
-Para o app se atualizar sozinho sem você recompilar nada, cole esta URL no campo
-**URL da base atualizada**, nos Ajustes (troque `SEU-USUARIO/radar-guard`):
+O app **já vem com esta URL preenchida** no campo **URL da base atualizada**, nos
+Ajustes — não precisa colar nada:
 
 ```
-https://github.com/SEU-USUARIO/radar-guard/releases/download/base-radares/radares.csv.gz
+https://github.com/andersong28/radar-guard/releases/download/base-radares/radares.csv.gz
 ```
 
 Depois é só tocar em **Atualizar base agora** quando estiver no Wi-Fi. A base baixada
