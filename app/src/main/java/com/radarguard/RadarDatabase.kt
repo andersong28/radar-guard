@@ -81,8 +81,10 @@ class RadarDatabase private constructor(
 
     companion object {
 
-        const val ASSET_NAME = "radares.csv.gz"
-        const val UPDATE_FILE = "radares.csv.gz"
+        // ".bin" e nao ".gz" de proposito: o AAPT descomprime e renomeia assets
+        // terminados em .gz durante o build, o que deixaria o APK sem base.
+        const val ASSET_NAME = "radares.bin"
+        const val UPDATE_FILE = "radares.bin"
 
         /**
          * Carrega a base atualizada baixada pelo usuario, caindo para a que veio no APK.

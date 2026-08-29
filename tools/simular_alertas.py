@@ -4,7 +4,7 @@ simular_alertas.py - Confere a base e simula uma passagem por um radar.
 
 Faz duas coisas:
 
-1. VALIDA o radares.csv.gz contra o contrato exato que o parser Kotlin
+1. VALIDA o radares.bin (CSV gzipado) contra o contrato exato que o parser Kotlin
    (RadarDatabase.parse) espera: 5 campos por linha separados por ';', numeros
    parseaveis, ordenacao por latitude, sem ';' extra vindo do rotulo.
 
@@ -26,7 +26,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSV = os.path.normpath(os.path.join(
-    HERE, "..", "app", "src", "main", "assets", "radares.csv.gz"))
+    HERE, "..", "app", "src", "main", "assets", "radares.bin"))
 
 METERS_PER_DEG_LAT = 111_320.0
 

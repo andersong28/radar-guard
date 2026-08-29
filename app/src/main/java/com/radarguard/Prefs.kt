@@ -68,7 +68,7 @@ class Prefs(context: Context) {
          * muda. Ja vem preenchida pra base atualizar sem o usuario colar nada.
          */
         const val DEFAULT_UPDATE_URL =
-            "https://github.com/andersong28/radar-guard/releases/download/base-radares/radares.csv.gz"
+            "https://github.com/andersong28/radar-guard/releases/download/base-radares/radares.bin"
         private const val KEY_STAGES = "stages"
         private const val KEY_VOICE_ABOVE = "voice_above"
         private const val KEY_OVERSPEED = "overspeed"

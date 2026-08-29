@@ -29,7 +29,7 @@ jobs:
           ls -la app/src/main/assets/
 
       # Tag fixa: o release e sobrescrito todo mes, entao o link de download
-      # .../releases/download/base-radares/radares.csv.gz continua valendo.
+      # .../releases/download/base-radares/radares.bin continua valendo.
       - name: Publicar base
         uses: softprops/action-gh-release@v2
         with:
@@ -39,14 +39,14 @@ jobs:
             Base de radares gerada automaticamente do OpenStreetMap (licenca ODbL).
             Cole esta URL no campo "URL da base atualizada" dos Ajustes do app:
 
-            https://github.com/${{ github.repository }}/releases/download/base-radares/radares.csv.gz
-          files: app/src/main/assets/radares.csv.gz
+            https://github.com/${{ github.repository }}/releases/download/base-radares/radares.bin
+          files: app/src/main/assets/radares.bin
 
       # Guarda a base nova no repositorio tambem, pra que o proximo APK ja nasca atualizado.
       - name: Commitar base no repositorio
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add app/src/main/assets/radares.csv.gz app/src/main/assets/radares.meta.json
+          git add app/src/main/assets/radares.bin app/src/main/assets/radares.meta.json
           git diff --staged --quiet || git commit -m "Atualiza base de radares (automatico)"
           git push

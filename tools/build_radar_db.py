@@ -5,7 +5,7 @@ build_radar_db.py - Gera a base de radares do RadarGuard a partir do OpenStreetM
 Baixa todos os nos highway=speed_camera do Brasil via Overpass API (em blocos,
 com rotacao de mirrors e retry), normaliza e grava:
 
-    app/src/main/assets/radares.csv.gz   <- base embarcada no APK
+    app/src/main/assets/radares.bin      <- base embarcada no APK
     app/src/main/assets/radares.meta.json
 
 Formato do CSV (sem cabecalho, para parsing rapido no Android):
@@ -42,6 +42,10 @@ MIRRORS = [
 
 # bbox do Brasil: (sul, oeste, norte, leste)
 BRASIL = (-34.0, -74.1, 5.5, -34.0)
+
+# Extensao neutra de proposito: o AAPT descomprime e renomeia assets terminados
+# em .gz durante o build, o que deixaria o app sem base. ".bin" passa intacto.
+DB_FILENAME = "radares.bin"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.normpath(os.path.join(HERE, "..", "app", "src", "main", "assets"))
@@ -265,7 +269,7 @@ def is_expired(tags, today):
 
 def write_db(nodes, out_dir, keep_expired=False):
     """
-    Converte os nos crus do OSM no radares.csv.gz.
+    Converte os nos crus do OSM no radares.bin (CSV gzipado).
 
     Separado do download de proposito: permite regerar a base a partir de um JSON
     ja baixado e, principalmente, deixa esta etapa testavel sem tocar na rede.
@@ -300,7 +304,7 @@ def write_db(nodes, out_dir, keep_expired=False):
 
     os.makedirs(out_dir, exist_ok=True)
     # mtime=0 deixa o gzip reproduzivel (mesma entrada -> mesmo arquivo)
-    with gzip.GzipFile(os.path.join(out_dir, "radares.csv.gz"),
+    with gzip.GzipFile(os.path.join(out_dir, DB_FILENAME),
                        "wb", compresslevel=9, mtime=0) as fh:
         fh.write(("\n".join(rows) + "\n").encode("utf-8"))
 
@@ -350,7 +354,7 @@ def main():
         return 1
 
     rows, expired, no_speed = write_db(nodes, args.out, args.keep_expired)
-    csv_path = os.path.join(args.out, "radares.csv.gz")
+    csv_path = os.path.join(args.out, DB_FILENAME)
 
     meta = {
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

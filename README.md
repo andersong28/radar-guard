@@ -67,7 +67,7 @@ O app **já vem com esta URL preenchida** no campo **URL da base atualizada**, n
 Ajustes — não precisa colar nada:
 
 ```
-https://github.com/andersong28/radar-guard/releases/download/base-radares/radares.csv.gz
+https://github.com/andersong28/radar-guard/releases/download/base-radares/radares.bin
 ```
 
 Depois é só tocar em **Atualizar base agora** quando estiver no Wi-Fi. A base baixada
@@ -147,7 +147,7 @@ na base do mês seguinte.
 ## Estrutura
 
 ```
-tools/build_radar_db.py    gera radares.csv.gz do OpenStreetMap
+tools/build_radar_db.py    gera radares.bin (CSV gzipado) do OpenStreetMap
 tools/simular_alertas.py   valida a base e simula uma passagem por um radar
 app/src/main/java/com/radarguard/
   GeoMath.kt               distância e rumo em plano tangente

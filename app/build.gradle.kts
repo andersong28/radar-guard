@@ -36,8 +36,8 @@ android {
     }
 
     androidResources {
-        // radares.csv.gz ja esta comprimido; recomprimir so gasta tempo de build.
-        noCompress += "gz"
+        // radares.bin ja e gzip; recomprimir so gastaria tempo de build.
+        noCompress += "bin"
     }
 }
 
