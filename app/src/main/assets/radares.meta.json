@@ -1,8 +1,8 @@
 {
-  "generated_utc": "2026-08-29T20:28:55Z",
+  "generated_utc": "2026-09-01T12:15:49Z",
   "source": "OpenStreetMap (ODbL) via Overpass API",
   "method": "area ISO3166-1=BR",
-  "count": 9018,
-  "with_maxspeed": 8057,
-  "dropped_expired_inmetro": 174
+  "count": 9028,
+  "with_maxspeed": 8070,
+  "dropped_expired_inmetro": 177
 }
