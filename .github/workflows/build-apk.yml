@@ -20,6 +20,10 @@ jobs:
 
       - name: Preparar Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # O padrao da action inclui o pacote "tools", que o sdkmanager atual
+          # nao encontra mais e derruba o build.
+          packages: 'platform-tools'
 
       # Sem gradle-wrapper.jar no repositorio: a action baixa o Gradle.
       # Assim o repo fica 100% texto e nao ha binario pra revisar ou corromper.
