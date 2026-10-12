@@ -19,6 +19,7 @@ class SettingsActivity : Activity() {
     private lateinit var minSpeed: EditText
     private lateinit var cone: EditText
     private lateinit var overspeed: CheckBox
+    private lateinit var muteFollower: CheckBox
     private lateinit var updateUrl: EditText
     private lateinit var info: TextView
 
@@ -35,6 +36,7 @@ class SettingsActivity : Activity() {
         minSpeed = findViewById(R.id.minSpeed)
         cone = findViewById(R.id.cone)
         overspeed = findViewById(R.id.overspeed)
+        muteFollower = findViewById(R.id.muteFollower)
         updateUrl = findViewById(R.id.updateUrl)
         info = findViewById(R.id.info)
 
@@ -44,6 +46,7 @@ class SettingsActivity : Activity() {
         minSpeed.setText(prefs.minSpeedKmh.toString())
         cone.setText(prefs.coneDegrees.toString())
         overspeed.isChecked = prefs.overspeedEnabled
+        muteFollower.isChecked = prefs.muteFollowerEnabled
         updateUrl.setText(prefs.updateUrl)
 
         findViewById<Button>(R.id.test).setOnClickListener { playSample() }
@@ -100,6 +103,7 @@ class SettingsActivity : Activity() {
         prefs.minSpeedKmh = minSpeed.text.toString().toIntOrNull() ?: 20
         prefs.coneDegrees = (cone.text.toString().toIntOrNull() ?: 30).coerceIn(10, 90)
         prefs.overspeedEnabled = overspeed.isChecked
+        prefs.muteFollowerEnabled = muteFollower.isChecked
         prefs.updateUrl = updateUrl.text.toString().trim()
         // Normaliza o campo caso o usuario tenha digitado algo invalido.
         stages.setText(prefs.stages().joinToString(","))

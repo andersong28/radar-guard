@@ -20,6 +20,10 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_OVERSPEED, true)
         set(v) = sp.edit().putBoolean(KEY_OVERSPEED, v).apply()
 
+    var muteFollowerEnabled: Boolean
+        get() = sp.getBoolean(KEY_MUTE_FOLLOWER, true)
+        set(v) = sp.edit().putBoolean(KEY_MUTE_FOLLOWER, v).apply()
+
     var overspeedToleranceKmh: Int
         get() = sp.getInt(KEY_TOLERANCE, 3)
         set(v) = sp.edit().putInt(KEY_TOLERANCE, v).apply()
@@ -57,7 +61,8 @@ class Prefs(context: Context) {
         coneDegrees = coneDegrees.toDouble(),
         minSpeedKmh = minSpeedKmh.toDouble(),
         overspeedToleranceKmh = overspeedToleranceKmh,
-        overspeedEnabled = overspeedEnabled
+        overspeedEnabled = overspeedEnabled,
+        muteFollowerEnabled = muteFollowerEnabled
     )
 
     companion object {
@@ -72,6 +77,7 @@ class Prefs(context: Context) {
         private const val KEY_STAGES = "stages"
         private const val KEY_VOICE_ABOVE = "voice_above"
         private const val KEY_OVERSPEED = "overspeed"
+        private const val KEY_MUTE_FOLLOWER = "mute_follower"
         private const val KEY_TOLERANCE = "tolerance"
         private const val KEY_MIN_SPEED = "min_speed"
         private const val KEY_CONE = "cone"

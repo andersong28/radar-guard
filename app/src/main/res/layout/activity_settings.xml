@@ -89,6 +89,18 @@
             style="@style/RGInput"
             android:inputType="number" />
 
+        <CheckBox
+            android:id="@+id/muteFollower"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/set_mute_follower"
+            android:textColor="#F2F6FA" />
+
+        <TextView
+            style="@style/RGHint"
+            android:text="@string/set_mute_follower_hint" />
+
         <Button
             android:id="@+id/test"
             android:layout_width="match_parent"

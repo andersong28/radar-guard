@@ -34,6 +34,9 @@
     <string name="set_cone">Abertura do cone frontal (graus)</string>
     <string name="set_cone_hint">Um radar só é engatado se estiver dentro deste ângulo à sua frente. Menor = menos alerta da pista contrária, porém pode perder radar em curva. 30 é um bom meio-termo.</string>
 
+    <string name="set_mute_follower">Não repetir a escala no radar da pista contrária</string>
+    <string name="set_mute_follower_hint">Em pista de mão dupla, o radar do outro sentido costuma vir logo depois do seu. Com isto ligado, um radar a até 500 m do que você acabou de passar não dispara a escala. O aviso de excesso continua valendo para ele.</string>
+
     <string name="set_test">Ouvir a escala completa</string>
 
     <string name="set_update_url">URL da base atualizada</string>

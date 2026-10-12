@@ -103,6 +103,7 @@ python tools/simular_alertas.py --velocidade 110
 | Distâncias de aviso | `2000,1000,500,300,200,100` | A escala completa. Edite à vontade. |
 | Falar acima de | `300` m | Acima disso fala a frase; abaixo, só bipa. |
 | Aviso de excesso | ligado | Repete o alerta se você estiver acima do limite perto do radar. |
+| Não repetir a escala no radar da pista contrária | ligado | Um radar sem sentido conhecido a até 500 m do que você acabou de passar não dispara a escala. O aviso de excesso continua valendo para ele. |
 | Tolerância do excesso | `3` km/h | O GPS lê um pouco abaixo do velocímetro do carro. |
 | Velocidade mínima | `20` km/h | Abaixo disso fica calado (parado, a pé, trânsito). |
 | Cone frontal | `30°` | Ângulo em que o radar conta como "à frente". |

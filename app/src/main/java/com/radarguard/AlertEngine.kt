@@ -20,6 +20,12 @@ package com.radarguard
  *    dentro do alcance e do cone ao mesmo tempo; se todos escalassem em paralelo
  *    seriam mais de cem avisos no mesmo trecho. Os demais consomem seus estagios
  *    em silencio e assumem a voz quando chega a vez deles.
+ *  - O RADAR LOGO DEPOIS DO SEU FICA SEM ESCALA. Em pista simples de mao dupla os
+ *    dois radares ficam em cima da mesma via e nada na base diz qual e o de cada
+ *    sentido; o da pista contraria aparece a frente assim que voce passa pelo seu.
+ *    Por isso um radar sem sentido conhecido, a ate 500 m do que acabou de ficar
+ *    pra tras, nao dispara os estagios. O aviso de excesso continua valendo pra
+ *    ele: se o radar for seu e voce estiver acima do limite, o app ainda avisa.
  */
 class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config()) {
 
@@ -40,7 +46,11 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
         val overspeedToleranceKmh: Int = 3,
         /** Distancia dentro da qual o aviso de excesso passa a valer. */
         val overspeedWithinMeters: Int = 400,
-        val overspeedEnabled: Boolean = true
+        val overspeedEnabled: Boolean = true,
+        /** Cala a escala do radar que vem logo depois do que voce acabou de passar. */
+        val muteFollowerEnabled: Boolean = true,
+        /** Ate que distancia do radar passado o seguinte conta como par dele. */
+        val followerWithinMeters: Int = 500
     ) {
         val sortedStages: IntArray = stages.sortedDescending().toIntArray()
         val maxStage: Int get() = if (sortedStages.isEmpty()) 0 else sortedStages[0]
@@ -80,6 +90,7 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
         var confirmations = 0
         var lastOverspeedMs = 0L
         var lastTick = 0L
+        var passed = false
     }
 
     private val states = HashMap<Int, Approach>()
@@ -114,11 +125,26 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
     private var lastBearing = Double.NaN
     private var slowSinceMs = 0L
 
+    // Ultimo radar pelo qual voce passou (-1 = nenhum). Guarda o rumo da passagem
+    // pra soltar o registro num retorno: ai o radar "da pista contraria" vira o seu.
+    private var passedIdx = -1
+    private var passedHeading = 0.0
+    private var passedMs = 0L
+
+    /** Radar sem sentido conhecido, colado no que acabou de ficar pra tras. */
+    private fun isFollower(i: Int, cfg: Config): Boolean {
+        val p = passedIdx
+        if (p < 0 || i == p || db.direction(i) >= 0) return false
+        return GeoMath.distance(db.lat(p), db.lon(p), db.lat(i), db.lon(i)) <=
+            cfg.followerWithinMeters
+    }
+
     fun reset() {
         states.clear()
         lastBearing = Double.NaN
         slowSinceMs = 0L
         lastAlertMs = 0L
+        passedIdx = -1
     }
 
     fun update(
@@ -147,6 +173,15 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
 
         if (lastBearing.isNaN()) return Result(null, emptyList())
         val heading = lastBearing
+
+        if (passedIdx >= 0 && (
+                nowMs - passedMs > PASSED_MEMORY_MS ||
+                GeoMath.angleDiff(heading, passedHeading) > 90.0 ||
+                GeoMath.distance(lat, lon, db.lat(passedIdx), db.lon(passedIdx)) >
+                    cfg.followerWithinMeters + 300.0)
+        ) {
+            passedIdx = -1
+        }
 
         val range = (cfg.maxStage + 600).toDouble()
         val n = db.near(lat, lon, range, candidates)
@@ -179,6 +214,20 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
             st.lastTick = tick
             st.confirmations++
             if (d < st.minDistance) st.minDistance = d
+
+            // Chegou perto e comecou a afastar: passou. Um radar que ja estava calado
+            // por ser o seguinte de outro nao vira referencia, senao uma fila de
+            // radares espacados se calaria em cadeia.
+            if (!st.passed && st.confirmations >= 2 &&
+                st.minDistance <= PASS_RADIUS_M && d > st.minDistance + PASS_MARGIN_M
+            ) {
+                st.passed = true
+                if (!isFollower(i, cfg)) {
+                    passedIdx = i
+                    passedHeading = heading
+                    passedMs = nowMs
+                }
+            }
 
             // Ja passou pelo radar (afastou do ponto de maior aproximacao) ou virou.
             if (d > st.minDistance + 150.0) {
@@ -233,7 +282,8 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
 
                 val limit = db.limitKmh(i)
                 val toFire = consumeStages(st, d, cfg)
-                if (toFire > 0) {
+                val muted = cfg.muteFollowerEnabled && isFollower(i, cfg)
+                if (toFire > 0 && !muted) {
                     lastAlertMs = nowMs
                     alerts.add(Alert(Kind.STAGE, i, toFire, d, limit, speedKmh, db.label(i)))
                 }
@@ -267,5 +317,12 @@ class AlertEngine(private val db: RadarDatabase, initialConfig: Config = Config(
     private companion object {
         /** Espaco minimo entre dois avisos falados, para nao se atropelarem. */
         const val MIN_ALERT_GAP_MS = 2_500L
+
+        /** Aproximacao minima pra contar que voce passou PELO radar, e nao ao largo. */
+        const val PASS_RADIUS_M = 80.0
+        /** Folga acima do ruido do GPS antes de dar o radar como passado. */
+        const val PASS_MARGIN_M = 25.0
+        /** Quanto tempo o radar passado segue calando o seguinte. */
+        const val PASSED_MEMORY_MS = 120_000L
     }
 }
